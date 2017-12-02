@@ -35,16 +35,19 @@ public class Example extends Activity {
 
 
             AndroidSegmentedControlView ascv = new AndroidSegmentedControlView(this);
-            ascv.setColors(Color.parseColor("#0066CC"),Color.parseColor("#FFFFFF"));
+            ascv.setColors(Color.parseColor("#FF0000"),Color.parseColor("#00FF00"));
             ascv.setItems(new String[]{"Test1", "Test2", "Test3"}, new String[]{"1", "2", "3"});
             ascv.setDefaultSelection(0);
+            ascv.setBorderColor(getResources().getColor(android.R.color.black));
+            ascv.setTextSize(40);
             holder.addView(ascv);
 
             AndroidSegmentedControlView ascv2 = new AndroidSegmentedControlView(this);
-            ascv2.setColors(Color.parseColor("#D24E4E"),Color.parseColor("#FFFFFF"));
+            ascv2.setColors(Color.parseColor("#D24E4E"),Color.parseColor("#FF00FF"));
             ascv2.setStretch(true);
             ascv2.setItems(new String[]{"Test4", "Test5", "Test6"}, new String[]{"4", "5", "6"});
             ascv2.setDefaultSelection(2);
+            ascv2.setTextSize(25);
             holder.addView(ascv2);
 
         }catch (Exception ex){

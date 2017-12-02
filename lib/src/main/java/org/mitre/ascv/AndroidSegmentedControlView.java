@@ -50,15 +50,17 @@ public class AndroidSegmentedControlView extends RadioGroup {
     private OnSelectionChangedListener mListener;
 
     //UI
+    private int selectedTextColor = Color.WHITE;
+    private int unselectedTextColor = Color.parseColor("#0099CC");
     private int selectedColor = Color.parseColor("#0099CC");
     private int unselectedColor = Color.TRANSPARENT;
-    private int unselectedTextColor = Color.parseColor("#0099CC");
     private int defaultSelection = -1;
     private boolean stretch = false;
-    private int selectedTextColor = Color.WHITE;
     private boolean equalWidth = false;
     private String identifier = "";
     private ColorStateList textColorStateList;
+    private int borderColor;
+    private float textSize = 20F;
 
     //Item organization
     private LinkedHashMap<String, String> itemMap = new LinkedHashMap<String, String>();
@@ -86,10 +88,12 @@ public class AndroidSegmentedControlView extends RadioGroup {
 
         try {
 
-            selectedColor = attributes.getColor(R.styleable.MultipleSelectionButton_ascv_selectedColor, selectedColor);
             selectedTextColor = attributes.getColor(R.styleable.MultipleSelectionButton_ascv_selectedTextColor, selectedTextColor);
-            unselectedColor = attributes.getColor(R.styleable.MultipleSelectionButton_ascv_unselectedColor, unselectedColor);
             unselectedTextColor = attributes.getColor(R.styleable.MultipleSelectionButton_ascv_unselectedTextColor, selectedColor);
+            selectedColor = attributes.getColor(R.styleable.MultipleSelectionButton_ascv_selectedColor, selectedColor);
+            unselectedColor = attributes.getColor(R.styleable.MultipleSelectionButton_ascv_unselectedColor, unselectedColor);
+            borderColor = attributes.getColor(R.styleable.MultipleSelectionButton_ascv_border_color, selectedColor);
+            textSize = attributes.getFloat(R.styleable.MultipleSelectionButton_ascv_text_size, textSize);
 
             //Set text selectedColor state list
             textColorStateList = new ColorStateList(new int[][]{
@@ -196,12 +200,14 @@ public class AndroidSegmentedControlView extends RadioGroup {
             if (i == 0) {
                 //Left
                 GradientDrawable leftUnselected = (GradientDrawable) mCtx.getResources().getDrawable(R.drawable.left_option).mutate();
-                leftUnselected.setStroke(twoDP, selectedColor);
+//                leftUnselected.setStroke(twoDP, selectedColor);
+                leftUnselected.setStroke(twoDP, borderColor);
 
                 leftUnselected.setColor(unselectedColor);
                 GradientDrawable leftSelected = (GradientDrawable) mCtx.getResources().getDrawable(R.drawable.left_option_selected).mutate();
                 leftSelected.setColor(selectedColor);
-                leftSelected.setStroke(twoDP, selectedColor);
+//                leftSelected.setStroke(twoDP, selectedColor);
+                leftSelected.setStroke(twoDP, borderColor);
 
                 StateListDrawable leftStateListDrawable = new StateListDrawable();
                 leftStateListDrawable.addState(new int[]{-android.R.attr.state_checked}, leftUnselected);
@@ -216,12 +222,14 @@ public class AndroidSegmentedControlView extends RadioGroup {
             } else if (i == (itemMap.size() - 1)) {
                 //Right
                 GradientDrawable rightUnselected = (GradientDrawable) mCtx.getResources().getDrawable(R.drawable.right_option).mutate();
-                rightUnselected.setStroke(twoDP, selectedColor);
+//                rightUnselected.setStroke(twoDP, selectedColor);
+                rightUnselected.setStroke(twoDP, borderColor);
 
                 rightUnselected.setColor(unselectedColor);
                 GradientDrawable rightSelected = (GradientDrawable) mCtx.getResources().getDrawable(R.drawable.right_option_selected).mutate();
                 rightSelected.setColor(selectedColor);
-                rightSelected.setStroke(twoDP, selectedColor);
+//                rightSelected.setStroke(twoDP, selectedColor);
+                rightSelected.setStroke(twoDP, borderColor);
 
                 StateListDrawable rightStateListDrawable = new StateListDrawable();
                 rightStateListDrawable.addState(new int[]{-android.R.attr.state_checked}, rightUnselected);
@@ -235,12 +243,14 @@ public class AndroidSegmentedControlView extends RadioGroup {
             } else {
                 //Middle
                 GradientDrawable middleUnselected = (GradientDrawable) mCtx.getResources().getDrawable(R.drawable.middle_option).mutate();
-                middleUnselected.setStroke(twoDP, selectedColor);
+//                middleUnselected.setStroke(twoDP, selectedColor);
+                middleUnselected.setStroke(twoDP, borderColor);
                 middleUnselected.setDither(true);
                 middleUnselected.setColor(unselectedColor);
                 GradientDrawable middleSelected = (GradientDrawable) mCtx.getResources().getDrawable(R.drawable.middle_option_selected).mutate();
                 middleSelected.setColor(selectedColor);
-                middleSelected.setStroke(twoDP, selectedColor);
+//                middleSelected.setStroke(twoDP, selectedColor);
+                middleSelected.setStroke(twoDP, borderColor);
 
                 StateListDrawable middleStateListDrawable = new StateListDrawable();
                 middleStateListDrawable.addState(new int[]{-android.R.attr.state_checked}, middleUnselected);
@@ -258,6 +268,7 @@ public class AndroidSegmentedControlView extends RadioGroup {
             rb.setGravity(Gravity.CENTER);
             rb.setTypeface(null, Typeface.BOLD);
             rb.setText(item.getKey());
+            rb.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             textWidth = Math.max(rb.getPaint().measureText(item.getKey()), textWidth);
             options.add(rb);
 
@@ -499,4 +510,23 @@ public class AndroidSegmentedControlView extends RadioGroup {
         update();
     }
 
+    /**
+     * Set border color
+     *
+     * @param borderColor
+     */
+    public void setBorderColor(int borderColor) {
+        this.borderColor = borderColor;
+        update();
+    }
+
+    /**
+     * Set text size
+     *
+     * @param textSixe
+     */
+    public void setTextSize(float textSize) {
+        this.textSize = textSize;
+        update();
+    }
 }

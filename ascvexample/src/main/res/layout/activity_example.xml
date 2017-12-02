@@ -38,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ascv:ascv_defaultSelection="2"
+        ascv:ascv_text_size="10"
         ascv:ascv_unselectedTextColor="@color/test_attr_unselected_text_color"
         ascv:ascv_selectedTextColor="@color/test_attr_selected_text_color"
         ascv:ascv_selectedColor="@color/test_attr_selected_color"
